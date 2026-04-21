@@ -62,6 +62,7 @@ if prompt := st.chat_input("Escribe tu comando aquí..."):
                 max_tokens=150
             )
             respuesta_ia = response.choices[0].message.content
+
             if "[RESPUESTA]" in respuesta_ia:
                 partes = respuesta_ia.split("[RESPUESTA]")
                 pensamiento = partes[0].replace("[PENSAMIENTO]", "").strip()
@@ -69,6 +70,10 @@ if prompt := st.chat_input("Escribe tu comando aquí..."):
             else:
                 pensamiento = ""
                 respuesta_final = respuesta_ia
+
+            with st.expander("🧠 Pensamiento de la IA"):
+                st.write(pensamiento)
+                
             st.markdown(respuesta_final)
             st.session_state.messages.append({"role": "assistant", "content": respuesta_final})
 
